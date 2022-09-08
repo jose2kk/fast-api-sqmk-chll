@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+
+  fast-api-squadmakers-db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      - POSTGRES_DATABASE=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5431:5432'
+    volumes: 
+      - database_data:/var/lib/postgresql/data
+      - ./bin/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  fast-api-squadmakers:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@fast-api-squadmakers-db:5432/postgres
+    depends_on:
+      - fast-api-squadmakers-db
+
+volumes:
+  database_data:
+    driver: local

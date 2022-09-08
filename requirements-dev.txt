@@ -1,0 +1,4 @@
+-r requirements.txt
+pylint==2.12.2
+pytest==6.2.5
+pytest-mock==3.7.0

@@ -1,0 +1,6 @@
+.pylintcr
+.gitignore
+tests/
+fixtures/
+.venv/
+.pytest_cache/
